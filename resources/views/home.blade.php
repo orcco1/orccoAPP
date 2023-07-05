@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('HOLA SEXO') }}
+                    {{ __('HOLA SEXITO') }}
                 </div>
             </div>
         </div>
