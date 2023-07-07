@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Empleados') }}</div>
+                <div class="card-header">{{ __('Proyectos') }}</div>
 
                 <div class="card-body">
 
@@ -21,18 +21,26 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Telefono</th>
-                                <th>Salario</th>
+                                <th>Proyecto</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($datos as $dato)
                             <tr>
-                                <td>{{ $dato->id}}</td>
-                                <td>{{ $dato->nombre_completo }}</td>
-                                <td>{{ $dato->telefono }}</td>
-                                <td>{{ $dato->salario }}</td>
+                                <td>{{ $dato->id_proyecto }}</td>
+                                <td>{{ $dato->proyecto }}</td>
+                                <td>{{ $dato->cliente }}</td>
+                                <td>{{ $dato->fecha_inicio }}</td>
+                                <td>
+                                    @if ($dato->activo == 0)
+                                        Inactivo
+                                    @else
+                                        Activo
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -17,22 +17,20 @@
                 <div class="card-body">
 
 
-                    <table id = "tablitaConMiAmorcito" class = "table">
+                    <table id="tablitaConMiAmorcito" class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Empresa</th>
                                 <th>Telefono</th>
-                                <th>Correo</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($datos as $dato)
                             <tr>
-                                <td>{{ $dato->id }}</td>
+                                <td>{{ $dato->id}}</td>
                                 <td>{{ $dato->nombre_empresa }}</td>
                                 <td>{{ $dato->telefono }}</td>
-                                <td>{{ $dato->correo_electronico }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -46,7 +44,7 @@
 
 <script>
     $(document).ready(function() {
-        $('tablitaConMiAmorcito').DataTable();
+        $('#tablitaConMiAmorcito').DataTable();
     });
 </script>
 

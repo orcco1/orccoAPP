@@ -25,4 +25,5 @@ Route::get('/empleados', [App\Http\Controllers\empleadosController::class, 'most
 
 Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostrarTabla'])->name('clientes.mostrarTabla');
 
+Route::get('/proyectos', [App\Http\Controllers\proyectosController::class, 'mostrarTabla'])->name('proyectos.mostrarTabla');
 
