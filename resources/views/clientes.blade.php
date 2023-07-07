@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Empleados') }}</div>
+                <div class="card-header">{{ __('Clientes') }}</div>
 
                 <div class="card-body">
 
@@ -21,18 +21,18 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
+                                <th>Empresa</th>
                                 <th>Telefono</th>
-                                <th>Salario</th>
+                                <th>Correo</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($datos as $dato)
                             <tr>
                                 <td>{{ $dato->id }}</td>
-                                <td>{{ $dato->nombre_completo }}</td>
+                                <td>{{ $dato->nombre_empresa }}</td>
                                 <td>{{ $dato->telefono }}</td>
-                                <td>{{ $dato->salario }}</td>
+                                <td>{{ $dato->correo_electronico }}</td>
                             </tr>
                             @endforeach
                         </tbody>
