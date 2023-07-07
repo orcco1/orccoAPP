@@ -21,4 +21,5 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/empleados', [App\Http\Controllers\HomeController::class, 'empleados'])->name('empleados');
+Route::get('/empleados', [App\Http\Controllers\empleadosController::class, 'mostrarTabla'])->name('empleados.mostrarTabla');
+
