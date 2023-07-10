@@ -27,3 +27,4 @@ Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostra
 
 Route::get('/proyectos', [App\Http\Controllers\proyectosController::class, 'mostrarTabla'])->name('proyectos.mostrarTabla');
 
+Route::post('/proyectos/guardar', [App\Http\Controllers\proyectosController::class, 'guardar'])->name('guardar.proyecto');
