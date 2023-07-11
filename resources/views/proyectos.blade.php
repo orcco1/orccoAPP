@@ -4,22 +4,28 @@
 <link href="https://cdn.datatables.net/v/bs/dt-1.13.5/b-2.4.0/date-1.5.0/r-2.5.0/sc-2.2.0/sb-1.5.0/datatables.css" rel="stylesheet"/>
  
 <script src="https://cdn.datatables.net/v/bs/dt-1.13.5/b-2.4.0/date-1.5.0/r-2.5.0/sc-2.2.0/sb-1.5.0/datatables.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
-                Crear Nuevo Proyecto
-            </a>
         </div>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Proyectos') }}</div>
+                <div class="card-header">{{ __('Proyectos') }} 
+                <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
+                    Crear Nuevo Proyecto
+                </a>
+            </div>
+                
                 <div class="card-body">
+                    
                     <table id="tablitaConMiAmorcito" class="table">
                         <thead>
                             <tr>
@@ -27,6 +33,7 @@
                                 <th>Proyecto</th>
                                 <th>Cliente</th>
                                 <th>Fecha</th>
+                                <th>Ubicacion</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
@@ -37,6 +44,7 @@
                                 <td>{{ $dato->proyecto }}</td>
                                 <td>{{ $dato->cliente }}</td>
                                 <td>{{ $dato->fecha_inicio }}</td>
+                                <td>{{ $dato->ubicacion }}</td>
                                 <td>
                                     @if ($dato->activo == 0)
                                         Inactivo
@@ -106,7 +114,37 @@
         $('#tablitaConMiAmorcito').DataTable({
             lengthMenu: [5, 10, 25, 50]
         });
+
+    });
+
+
+    
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        toastr.options = {
+            positionClass: 'toast-top-left',
+            closeButton: true,
+            progressBar: true,
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 6000
+        };
+
+        @if(session('success'))
+            toastr.success("Proyecto registrado con éxito");
+        @endif
     });
 </script>
+
+<style>
+    .toast-success {
+        color: black !important;
+    }
+</style>
+
 
 @endsection

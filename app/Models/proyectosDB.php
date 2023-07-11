@@ -12,6 +12,6 @@ class proyectosDB extends Model
     
     protected $table = 'proyectos';
     
-    protected $fillable = ['id_proyecto', 'proyecto', 'cliente','fecha_inicio','activo'];
+    protected $fillable = ['id_proyecto', 'proyecto', 'cliente','fecha_inicio','ubicacion','activo'];
     
 }
