@@ -18,14 +18,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Proyectos') }} 
+                <div class="card-header">{{ __('Proyectos') }}
                 <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
-                    Crear Nuevo Proyecto
-                </a>
+                Crear Nuevo Proyecto
+            </a>
             </div>
-                
+
                 <div class="card-body">
-                    
+
                     <table id="tablitaConMiAmorcito" class="table">
                         <thead>
                             <tr>
@@ -118,7 +118,7 @@
     });
 
 
-    
+
 </script>
 
 
