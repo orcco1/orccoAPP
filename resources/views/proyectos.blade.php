@@ -1,8 +1,6 @@
 @extends('layouts.app')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <link href="https://cdn.datatables.net/v/bs/dt-1.13.5/b-2.4.0/date-1.5.0/r-2.5.0/sc-2.2.0/sb-1.5.0/datatables.css" rel="stylesheet"/>
- 
 <script src="https://cdn.datatables.net/v/bs/dt-1.13.5/b-2.4.0/date-1.5.0/r-2.5.0/sc-2.2.0/sb-1.5.0/datatables.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -55,11 +53,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                        <button class="btn btn-danger btn-sm"
-                                                onclick="eliminarProyecto({{ $dato->id_proyecto }})">Eliminar
-                                        </button>
-                                    </td>
+                                    <button class="btn btn-danger btn-sm"
+                                        onclick="eliminarProyecto({{ $dato->id_proyecto }})">Eliminar
+                                    </button>
+                                </td>
                             </tr>
+                            
                             @endforeach
                         </tbody>
                     </table>
@@ -117,6 +116,70 @@
     </div>
 </div>
 
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar eliminación de proyecto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar el proyecto <span id="proyectoId"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                <button  type="button" class="btn btn-danger" id="confirmarEliminarBtn">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function eliminarProyecto(id_proyecto) {
+    $('#proyectoId').text(id_proyecto);
+    $('#confirmarEliminarModal').modal('show');
+    
+    // Desvincular los controladores de eventos click anteriores
+    $('#confirmarEliminarBtn').off('click');
+    
+    // Agregar el nuevo controlador de eventos click
+    $('#confirmarEliminarBtn').on('click', function() {
+        // Hacer la petición de eliminación del proyecto utilizando el método DELETE
+        $.ajax({
+            url: '/proyectos/eliminar/' + id_proyecto,
+            type: 'DELETE',
+            data: {
+                "_token": "{{ csrf_token() }}"
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Mostrar el toast de éxito
+                    toastr.success("El proyecto ha sido eliminado con éxito");
+
+                    // Actualizar la tabla de proyectos
+                    $('#tablitaConMiAmorcito').DataTable().ajax.reload();
+                } else {
+                    // Mostrar el toast de error con el mensaje recibido
+                    toastr.error(response.message);
+                }
+            },
+            error: function(xhr) {
+                // Mostrar el toast de error
+                toastr.error("Ha ocurrido un error al eliminar el proyecto");
+            }
+        });
+
+        $('#confirmarEliminarModal').modal('hide');
+    });
+}
+
+
+</script>
+
+
+
 <script>
     $(document).ready(function() {
         $('#tablitaConMiAmorcito').DataTable({
@@ -124,9 +187,6 @@
         });
 
     });
-
-
-
 </script>
 
 
@@ -148,37 +208,7 @@
     });
 </script>
 
-<script>
-    function eliminarProyecto(id_proyecto) {
-    toastr.options = {
-        closeButton: true,
-        progressBar: true,
-        positionClass: 'toast-top-right',
-        preventDuplicates: true,
-        timeOut: 5000
-    };
 
-    toastr.warning('¿Estás seguro de que deseas eliminar el proyecto ' + id_proyecto + '?',
-        'Confirmación de eliminación', {
-            closeButton: true,
-            timeOut: 10000,
-            extendedTimeOut: 2000,
-            positionClass: 'toast-top-right',
-            progressBar: true,
-            closeHtml: '<button><i class="fa fa-times"></i></button>',
-            onCloseClick: function () {
-                // Se ejecuta cuando se hace clic en el botón de cierre de la notificación
-                // Puedes realizar alguna acción aquí si es necesario
-            },
-            showDuration: '300',
-            hideDuration: '1000',
-            hideEasing: 'linear',
-            showMethod: 'fadeIn',
-            hideMethod: 'fadeOut'
-        }
-    );
-}
-</script>
 
 <style>
     .toast-success {
@@ -186,12 +216,12 @@
     }
 </style>
 
+
 <style>
     .toast-message {
         color: black;
     }
 </style>
-
 
 
 
