@@ -35,6 +35,8 @@
                                 <th>Fecha</th>
                                 <th>Ubicacion</th>
                                 <th>Estado</th>
+                                 <th>Acciones</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -52,6 +54,11 @@
                                         Activo
                                     @endif
                                 </td>
+                                <td>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="eliminarProyecto({{ $dato->id_proyecto }})">Eliminar
+                                        </button>
+                                    </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -61,6 +68,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 <!-- Ventana modal para crear nuevo proyecto -->
 <div class="modal fade" id="crearProyectoModal" tabindex="-1" aria-labelledby="crearProyectoModalLabel" aria-hidden="true">
@@ -140,11 +148,50 @@
     });
 </script>
 
+<script>
+    function eliminarProyecto(id_proyecto) {
+    toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        timeOut: 5000
+    };
+
+    toastr.warning('¿Estás seguro de que deseas eliminar el proyecto ' + id_proyecto + '?',
+        'Confirmación de eliminación', {
+            closeButton: true,
+            timeOut: 10000,
+            extendedTimeOut: 2000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeHtml: '<button><i class="fa fa-times"></i></button>',
+            onCloseClick: function () {
+                // Se ejecuta cuando se hace clic en el botón de cierre de la notificación
+                // Puedes realizar alguna acción aquí si es necesario
+            },
+            showDuration: '300',
+            hideDuration: '1000',
+            hideEasing: 'linear',
+            showMethod: 'fadeIn',
+            hideMethod: 'fadeOut'
+        }
+    );
+}
+</script>
+
 <style>
     .toast-success {
         color: black !important;
     }
 </style>
 
+<style>
+    .toast-message {
+        color: black;
+    }
+</style>
 
-@endsection
+
+
+
