@@ -21,7 +21,7 @@
                 <div class="card-header">{{ __('Proyectos') }}
                 <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#crearProyectoModal">
                 Crear Nuevo Proyecto
-            </a>
+                </a>
             </div>
 
                 <div class="card-body">

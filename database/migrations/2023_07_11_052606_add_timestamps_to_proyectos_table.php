@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddTimestampsToProyectosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('proyectos', function (Blueprint $table) {
-            $table->timestamps();
+            // Eliminar las columnas created_at y updated_at
+            $table->dropColumn(['created_at', 'updated_at']);
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('proyectos', function (Blueprint $table) {
-            //
+            // Agregar nuevamente las columnas created_at y updated_at si es necesario
+            $table->timestamps();
         });
     }
-};
+}

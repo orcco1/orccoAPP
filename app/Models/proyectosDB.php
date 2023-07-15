@@ -12,6 +12,7 @@ class proyectosDB extends Model
     
     protected $table = 'proyectos';
     protected $primaryKey = 'id_proyecto';
+    public $timestamps = false; // Desactiva las columnas timestamps
     protected $fillable = ['id_proyecto', 'encargado', 'proyecto', 'cliente','fecha_inicio','ubicacion','activo'];
     
 }
