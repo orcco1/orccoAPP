@@ -26,7 +26,9 @@ Route::get('/empleados', [App\Http\Controllers\empleadosController::class, 'most
 Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostrarTabla'])->name('clientes.mostrarTabla');
 
 Route::get('/proyectos', [App\Http\Controllers\proyectosController::class, 'mostrarTabla'])->name('proyectos.mostrarTabla');
-
 Route::post('/proyectos/guardar', [App\Http\Controllers\proyectosController::class, 'guardar'])->name('guardar.proyecto');
-
 Route::delete('/proyectos/eliminar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'eliminar'])->name('eliminar.proyecto');
+Route::get('/proyectos/obtener/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'obtenerProyecto'])->name('obtener.proyecto');
+Route::get('/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'obtenerProyecto'])->name('editar.proyecto');
+Route::match(['get', 'post'], '/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'guardarEdicion'])->name('editar.proyecto');
+Route::post('/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'guardarEdicion'])->name('guardarEdicion.proyecto');
