@@ -23,7 +23,10 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('/empleados', [App\Http\Controllers\empleadosController::class, 'mostrarTabla'])->name('empleados.mostrarTabla');
 Route::post('/empleados/crear', [App\Http\Controllers\empleadosController::class, 'guardarEmpleado'])->name('empleados.guardar');
+Route::get('/empleados/lista', [App\Http\Controllers\empleadosController::class, 'listaEmpleados'])->name('lista.empleados');
 
+
+Route::get('/reportes', [App\Http\Controllers\ReportesController::class, 'index'])->name('reportes');
 
 
 Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostrarTabla'])->name('clientes.mostrarTabla');
@@ -35,3 +38,8 @@ Route::get('/proyectos/obtener/{id_proyecto}', [App\Http\Controllers\proyectosCo
 Route::get('/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'obtenerProyecto'])->name('editar.proyecto');
 Route::match(['get', 'post'], '/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'guardarEdicion'])->name('editar.proyecto');
 Route::post('/proyectos/editar/{id_proyecto}', [App\Http\Controllers\proyectosController::class, 'guardarEdicion'])->name('guardarEdicion.proyecto');
+Route::post('/proyectos/asignar', [App\Http\Controllers\proyectosController::class, 'asignarProyecto'])->name('asignar.proyecto');
+
+
+
+Route::post('/guardar-formulario', [App\Http\Controllers\TuController::class, 'guardarFormulario'])->name('guardar.formulario');

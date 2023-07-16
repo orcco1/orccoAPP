@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\empleadosDB; 
 use App\Models\proyectosDB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -123,4 +124,32 @@ class proyectosController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+
+
+
+
+    public function asignarProyecto(Request $request)
+    {
+        $proyectoId = $request->input('id_proyecto');
+        $empleadosSeleccionados = $request->input('empleadosSeleccionados'); // Cambio aquí
+    
+        $proyecto = proyectosDB::find($proyectoId);
+        if ($proyecto) {
+            foreach ($empleadosSeleccionados as $correo) { // Cambio aquí
+                // Aquí deberías obtener al empleado por el correo y asignarle el proyecto
+                // Por ejemplo, si tienes una relación en el modelo Empleado llamada "proyectos", puedes hacer algo como:
+                $empleado = empleadosDB::where('email', $email)->first(); // Cambio aquí
+                if ($empleado) {
+                    $empleado->proyectos()->attach($proyecto->id);
+                }
+            }
+    
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Proyecto no encontrado']);
+        }
+    }
+    
+
 }

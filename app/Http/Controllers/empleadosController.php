@@ -45,6 +45,15 @@ class EmpleadosController extends Controller
         return redirect()->route('empleados.mostrarTabla')->with('success', 'Empleado creado exitosamente.');
     }
 
+    public function listaEmpleados()
+{
+    try {
+        $empleados = empleadosDB::select('id', 'nombre_completo', 'email')->get();
+        return response()->json($empleados);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
   
 
 }

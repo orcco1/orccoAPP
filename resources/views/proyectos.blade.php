@@ -58,14 +58,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="button-container">
-                                        <button class="btn btn-warning btn-sm" onclick="editarProyecto({{ $dato->id_proyecto }})" data-id="{{ $dato->id_proyecto }}">
+                                    <div class="button-container d-flex">
+                                        <button class="btn btn-warning btn-sm me-2" onclick="editarProyecto({{ $dato->id_proyecto }})" data-id="{{ $dato->id_proyecto }}">
                                             <i class="fas fa-pencil-alt fa-lg"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm" onclick="eliminarProyecto({{ $dato->id_proyecto }})">
+                                        <button class="btn btn-danger btn-sm me-2" onclick="eliminarProyecto({{ $dato->id_proyecto }})">
                                             <i class="fas fa-trash-alt fa-lg"></i>
                                         </button>
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#asignarProyectoModal">
+                                            <i class="fas fa-plus fa-lg"></i>
+                                        </button>
                                     </div>
+                                    
                                 </td>
                                 
                                 
@@ -220,6 +224,39 @@
     </div>
 </div>
 
+
+<!-- Modal de seleccion -->
+<div class="modal fade" id="asignarProyectoModal" tabindex="-1" aria-labelledby="asignarProyectoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="asignarProyectoModalLabel">Asignar Proyecto a Empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tablaEmpleados" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se mostrarán los empleados disponibles -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnAsignarProyecto">Asignar Proyecto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
 function editarProyecto(id_proyecto) {
     // Obtener la URL para la ruta de edición con el valor de id_proyecto
@@ -368,6 +405,45 @@ function editarProyecto(id_proyecto) {
         @endif
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Función para cargar la lista de empleados en la tabla
+        function cargarEmpleados() {
+            $.ajax({
+                url: "{{ route('lista.empleados') }}",
+                type: 'GET',
+                success: function(response) {
+                    $('#tablaEmpleados tbody').empty();
+                    $.each(response, function(index, empleado) {
+                        var row = `
+                            <tr>
+                                <td>${empleado.id}</td>
+                                <td>${empleado.nombre_completo}</td>
+                                <td>${empleado.email}</td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="empleadosSeleccionados[]" value="${empleado.email}">
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                        $('#tablaEmpleados tbody').append(row);
+                    });
+                },
+                error: function(xhr) {
+                    // Mostrar mensaje de error si hay un error en la petición AJAX
+                    toastr.error("Ha ocurrido un error al cargar la lista de empleados");
+                }
+            });
+        }
+    
+        // Al abrir la ventana modal de asignación de proyectos, cargar la lista de empleados disponibles
+        $('#asignarProyectoModal').on('show.bs.modal', function() {
+            cargarEmpleados();
+        });
+    });
+    </script>
 
 <style>
     .toast-success {

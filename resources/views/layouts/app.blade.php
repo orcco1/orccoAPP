@@ -51,6 +51,10 @@
                         @else
 
                         <li class="nav-item">
+                            <a class="nav-link" href="/reportes" style="font-size: 18px;">Reportes</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="/proyectos" style="font-size: 18px;">Proyectos</a>
                         </li>
                         
