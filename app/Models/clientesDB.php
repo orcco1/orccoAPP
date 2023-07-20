@@ -14,5 +14,6 @@ class clientesDB extends Model
     
     protected $fillable = ['id', 'nombre_empresa', 'telefono','correo_electronico'];
     
+    public $timestamps = false; // Deshabilitar los timestamps
 
 }

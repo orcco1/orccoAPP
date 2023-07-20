@@ -30,6 +30,8 @@ Route::get('/reportes', [App\Http\Controllers\ReportesController::class, 'index'
 
 
 Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostrarTabla'])->name('clientes.mostrarTabla');
+Route::post('/clientes/guardar', [App\Http\Controllers\clientesController::class, 'guardar'])->name('clientes.guardar');
+
 
 Route::get('/proyectos', [App\Http\Controllers\proyectosController::class, 'mostrarTabla'])->name('proyectos.mostrarTabla');
 Route::post('/proyectos/guardar', [App\Http\Controllers\proyectosController::class, 'guardar'])->name('guardar.proyecto');
