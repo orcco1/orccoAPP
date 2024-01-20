@@ -14,12 +14,11 @@
             <div class="card">
                 <div class="card-header">{{ __('Empleados') }}
                     <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#crearEmpleadoModal">
-                         Nuevo empleado
+                         Nuevo empleado 
                     </a>
                 </div>
 
                 <div class="card-body">
-
 
                     <table id="tablita" class="table">
                         <thead>
