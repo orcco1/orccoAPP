@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Reportes') }}</div>
 
                 <div class="card-body">
-                   Hola
+                   Hola cola 
                 </div>
             </div>
         </div>
