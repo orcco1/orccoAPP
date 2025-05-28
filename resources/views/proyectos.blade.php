@@ -141,17 +141,17 @@
 
 <!-- Ventana modal para editar proyecto -->
 <div class="modal fade" id="editarProyectoModal" tabindex="-1" aria-labelledby="editarProyectoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarProyectoModalLabel">Editar proyecto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('editar.proyecto', ['id_proyecto' => $dato->id_proyecto]) }}" method="POST">
-                    @csrf
-
-                    <input type="hidden" name="id_proyecto" value="{{ $dato->id_proyecto }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editarProyectoModalLabel">Editar proyecto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editarProyectoForm" action="" method="POST">
+          @csrf
+          {{-- El ID se rellenará por JS --}}
+          <input type="hidden" id="id_proyecto_input" name="id_proyecto">
 
                     <div class="mb-3">
                         <label for="proyecto_editar" class="form-label">Nombre del proyecto</label>
@@ -293,49 +293,29 @@
 
 <script>
 function editarProyecto(id_proyecto) {
-    // Obtener la URL para la ruta de edición con el valor de id_proyecto
-    var editarUrl = "{{ route('editar.proyecto', ':id_proyecto') }}".replace(':id_proyecto', id_proyecto);
+    // 1) Construir y fijar la URL del formulario
+    var editarUrl = "{{ route('editar.proyecto', ':id_proyecto') }}"
+                    .replace(':id_proyecto', id_proyecto);
+    $('#editarProyectoForm').attr('action', editarUrl);
 
-    // Actualizar el atributo "action" del formulario de edición con la URL correcta
-    $('#editarProyectoModal form').attr('action', editarUrl);
-
-    // Hacer una petición AJAX para obtener los datos del proyecto existente
-    $.ajax({
-        url: "{{ route('obtener.proyecto', ':id_proyecto') }}".replace(':id_proyecto', id_proyecto),
-        type: 'GET',
-        success: function(response) {
-            console.log(response); // Verificar la estructura de la respuesta en la consola del navegador
-            if (response.success) {
-                // Acceder a los datos del proyecto
-                var proyecto = response.proyecto;
-                var id_proyecto = proyecto.id_proyecto;
-                var proyecto_editar = proyecto.proyecto;
-                var cliente_editar = proyecto.cliente;
-                var encargado_editar = proyecto.encargado;
-                var fecha_inicio_editar = proyecto.fecha_inicio;
-                var ubicacion_editar = proyecto.ubicacion;
-                var activo_editar = proyecto.activo;
-
-                // Cargar los datos del proyecto existente en el formulario del modal
-                $('#id_proyecto_editar').val(id_proyecto);
-                $('#proyecto_editar').val(proyecto_editar);
-                $('#cliente_editar').val(cliente_editar);
-                $('#encargado_editar').val(encargado_editar);
-                $('#fecha_inicio_editar').val(fecha_inicio_editar);
-                $('#ubicacion_editar').val(ubicacion_editar);
-                $('#activo_editar').val(activo_editar);
-
-                // Abrir el modal de edición
-                $('#editarProyectoModal').modal('show');
-            } else {
-                // Mostrar mensaje de error si el proyecto no existe
-                toastr.error(response.message);
-            }
-        },
-        error: function(xhr) {
-            // Mostrar mensaje de error si hay un error en la petición AJAX
-            toastr.error("Ha ocurrido un error al cargar los datos del proyecto");
+    // 2) Petición AJAX para cargar los datos existentes
+    $.get("{{ route('obtener.proyecto', ':id_proyecto') }}"
+          .replace(':id_proyecto', id_proyecto), function(response) {
+        if (response.success) {
+            let p = response.proyecto;
+            $('#id_proyecto_input').val(p.id_proyecto);
+            $('#proyecto_editar').val(p.proyecto);
+            $('#cliente_editar').val(p.cliente);
+            $('#encargado_editar').val(p.encargado);
+            $('#fecha_inicio_editar').val(p.fecha_inicio);
+            $('#ubicacion_editar').val(p.ubicacion);
+            $('#activo_editar').val(p.activo);
+            $('#editarProyectoModal').modal('show');
+        } else {
+            toastr.error(response.message);
         }
+    }).fail(function() {
+        toastr.error("Error al cargar datos del proyecto");
     });
 }
 

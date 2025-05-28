@@ -26,7 +26,7 @@ Route::post('/empleados/crear', [App\Http\Controllers\empleadosController::class
 Route::get('/empleados/lista', [App\Http\Controllers\empleadosController::class, 'listaEmpleados'])->name('lista.empleados');
 
 
-Route::get('/reportes', [App\Http\Controllers\ReportesController::class, 'index'])->name('reportes');
+Route::get('/reportes', [App\Http\Controllers\reportesController::class, 'index'])->name('reportes');
 
 
 Route::get('/clientes', [App\Http\Controllers\clientesController::class, 'mostrarTabla'])->name('clientes.mostrarTabla');
