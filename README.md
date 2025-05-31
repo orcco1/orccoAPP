@@ -1,8 +1,11 @@
+
 # orccoAPP
 
 A Laravel application for managing reports, projects, employees, and clients for ORCCO.
 
 ---
+
+### LINUX
 
 ## Table of Contents
 
@@ -197,6 +200,84 @@ cd orccoAPP
 git checkout -b feature/YourFeature
 git commit -am "Add your feature"
 git push origin feature/YourFeature
+```
+
+---
+
+### Windows
+
+#### Prerequisites
+
+Make sure you have:
+
+- [XAMPP](https://www.apachefriends.org/index.html) or [Laragon](https://laragon.org/)
+- PHP ≥ 8.4
+- Composer
+- Node.js ≥ 16 and npm
+
+#### Steps
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/orcco1/orccoAPP.git
+cd orccoAPP
+```
+
+2. **Install PHP dependencies**
+
+```bash
+composer install
+```
+
+3. **Install Node dependencies**
+
+```bash
+npm install
+```
+
+4. **Copy `.env` file and set the app key**
+
+```bash
+copy .env.example .env
+php artisan key:generate
+```
+
+5. **Configure the `.env` file** with your database credentials:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=orccoApp
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+6. **Create the database** using phpMyAdmin or MySQL console (included in XAMPP/Laragon):
+
+```sql
+CREATE DATABASE orccoApp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+7. **Run migrations**
+
+```bash
+php artisan migrate
+```
+
+8. **Run the development server**
+
+```bash
+php artisan serve
+```
+
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+9. **Compile frontend assets**
+
+```bash
+npm run dev
 ```
 
 ---
