@@ -101,10 +101,6 @@
                     @csrf
                     <!-- Campos del formulario -->
                     <div class="mb-3">
-                        <label for="id_proyecto" class="form-label">ID del proyecto</label>
-                        <input type="text" class="form-control" id="id_proyecto" name="id_proyecto" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="proyecto" class="form-label">Nombre del proyecto</label>
                         <input type="text" class="form-control" id="proyecto" name="proyecto" required>
                     </div>

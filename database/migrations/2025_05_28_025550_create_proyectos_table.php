@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('proyectos', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_proyecto'); // Auto-increment
+            $table->string('proyecto');
+            $table->string('cliente');
+            $table->string('encargado');
+            $table->date('fecha_inicio')->nullable();
+            $table->string('ubicacion')->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
